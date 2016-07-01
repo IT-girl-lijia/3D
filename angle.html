@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title></title>
+    <style type="text/css">
+    *{margin: 0;padding: 0;}
+    body{
+        perspective-origin: center center;
+        -webkit-perspective-origin: center center;
+        -moz-perspective-origin: center center;
+
+        perspective: 900px;
+        transform-style: preserve-3d;
+    }
+    #wrap{
+        transform-style: preserve-3d;
+          width:500px;height:500px;background:#bce0ee;opacity:0.5;border: 1px solid #ccc;margin: 200px auto;position: relative;
+    }
+        .box{width: 200px;height:200px;background: lightpink;position: absolute;left: 156px;top:135px;opacity: 0.4;}
+        .box1{background: chartreuse;}
+        .box2{background: crimson;}
+        .box3{background: darkmagenta;}
+        .box4{background: darksalmon;}
+        .box5{background: deeppink;}
+        #wrap div:nth-child(1){
+            transform-origin: left top;
+            transform: rotate(0deg) translateZ(-200px);
+        }
+        #wrap div:nth-child(2){
+            transform-origin: right top;
+            transform: rotateY(-90deg);
+        }
+        #wrap div:nth-child(3){
+             transform-origin: left top;
+             transform: rotateY(90deg);
+         }
+    #wrap div:nth-child(4){
+        transform-origin: center top;
+        transform: rotateX(-90deg);
+    }
+    #wrap div:nth-child(5){
+        transform-origin: center bottom;
+        transform: rotateX(90deg);
+    }
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="box"></div>
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="box box3"></div>
+    <div class="box box4"></div>
+    <div class="box box5"></div>
+</div>
+
+</body>
+<script>
+    var wrap = document.getElementById('wrap');
+    var rotateX = 0;
+    var rotateY = 0;
+    wrap.onmousedown = function(ev){
+        var oldX = ev.clientX;
+        var oldY = ev.clientY;
+        document.onmousemove = function(ev){
+            var nowX = ev.clientX;
+            var nowY = ev.clientY;
+
+            var disX = nowX - oldX;
+            var disY = nowY - oldY;
+            console.log(disX);
+
+            rotateY = rotateY + disX/5;
+            rotateX = rotateX - disY/5;
+
+            wrap.style.transform = 'rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)';
+            oldX = nowX;
+            oldY = nowY;
+            return false;
+        }
+
+        return false;
+    }
+
+    document.onmouseup = function(){
+        document.onmousedown = null;
+        document.onmousemove = null;
+    }
+</script>
+</html>
